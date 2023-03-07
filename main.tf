@@ -1,16 +1,21 @@
-provider "aws" { 
-   access_key = "AKIA4RQKFTGQGNN3FVSV" 
-   secret_key = "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"
-   region = "us-east-1"
+provider "aws" {
+  profile = "aws_terraform"
 }
 
 
-resource "aws_vpc" "prod-vpc" {
-  cidr_block = "10.0.0.0/16"
-  tags = {
-    Name = "production"
-  }
+ resource "aws_vpc" "prod-vpc" {
+   cidr_block = "10.0.0.0/16"
+   tags = {
+     Name = "aws-terraform-production"
+   }
+ }
+
+
+variable "subnet_prefix" {
+  description = "cidr block for the subnet"
+
 }
+
 
 resource "aws_subnet" "subnet-1" {
   vpc_id            = aws_vpc.prod-vpc.id
@@ -22,6 +27,7 @@ resource "aws_subnet" "subnet-1" {
   }
 }
 
+
 resource "aws_subnet" "subnet-2" {
   vpc_id            = aws_vpc.prod-vpc.id
   cidr_block        = var.subnet_prefix[1].cidr_block
@@ -31,8 +37,6 @@ resource "aws_subnet" "subnet-2" {
     Name = var.subnet_prefix[1].name
   }
 }
-
-
 
 
 # # 1. Create vpc
