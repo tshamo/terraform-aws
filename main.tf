@@ -39,6 +39,27 @@ resource "aws_subnet" "subnet-2" {
 }
 
 
+resource "aws_instance" "web-server-instance1" {
+   ami               = "ami-085925f297f89fce1"
+   instance_type     = "t2.micro"
+   availability_zone = "us-east-1a"
+
+   tags = {
+    Name = "terra-web-1"
+  }
+ }
+
+ resource "aws_instance" "web-server-instance2" {
+   ami               = "ami-085925f297f89fce1"
+   instance_type     = "t2.micro"
+   availability_zone = "us-east-1c"
+
+   tags = {
+    Name = "terra-web-2"
+  }
+ }
+
+
 # # 1. Create vpc
 
 # resource "aws_vpc" "prod-vpc" {
